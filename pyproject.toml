@@ -1,0 +1,44 @@
+[project]
+name = "lerobot_teleoperator_galaxea_a1_so_leader"
+version = "0.1.0"
+description = "LeRobot Teleoperator plugin for the Galaxea A1 SO-Leader"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = "Apache-2.0"
+authors = [{ name = "PengYue" }]
+keywords = ["lerobot", "galaxea", "teleoperation", "feetech"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = ["lerobot[feetech]>=0.6.0,<0.7"]
+
+[project.urls]
+Homepage = "https://github.com/pengyue-polaron/lerobot-teleoperator-galaxea-a1-so-leader"
+Repository = "https://github.com/pengyue-polaron/lerobot-teleoperator-galaxea-a1-so-leader"
+Issues = "https://github.com/pengyue-polaron/lerobot-teleoperator-galaxea-a1-so-leader/issues"
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["lerobot_teleoperator_galaxea_a1_so_leader*"]
+
+[dependency-groups]
+dev = [
+    "build>=1.2",
+    "pytest>=9.0",
+    "ruff>=0.14",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
