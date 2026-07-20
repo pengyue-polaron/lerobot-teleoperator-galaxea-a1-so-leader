@@ -9,6 +9,10 @@
   <a href="LICENSE"><img alt="Apache-2.0 License" src="https://img.shields.io/badge/License-Apache--2.0-blue.svg"></a>
 </p>
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/pengyue-polaron/galaxea-a1-runtime/main/assets/images/a1-teleoperation-setup.png" width="760" alt="Modified six-axis SO-101 leader paired with a Galaxea A1 follower">
+</p>
+
 This package registers the LeRobot Teleoperator type
 `galaxea_a1_so_leader`. It owns the leader's serial bus, calibration, setup,
 action reads, optional feedback, and connection lifecycle. It does not import
