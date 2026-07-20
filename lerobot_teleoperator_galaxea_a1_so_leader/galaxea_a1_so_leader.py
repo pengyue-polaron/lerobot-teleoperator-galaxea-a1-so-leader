@@ -70,9 +70,7 @@ class GalaxeaA1SOLeader(Teleoperator):
 
     def calibrate(self) -> None:
         if self.calibration:
-            answer = input(
-                f"Use calibration for {self.id}: Enter=accept, c=recalibrate > "
-            )
+            answer = input(f"Use calibration for {self.id}: Enter=accept, c=recalibrate > ")
             if answer.strip().lower() != "c":
                 self.bus.write_calibration(self.calibration)
                 return

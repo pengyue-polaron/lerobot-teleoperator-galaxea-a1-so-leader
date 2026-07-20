@@ -13,6 +13,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.12",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Typing :: Typed",
 ]
 dependencies = ["lerobot[feetech]>=0.6.0,<0.7"]
 
@@ -28,6 +29,9 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["lerobot_teleoperator_galaxea_a1_so_leader*"]
+
+[tool.setuptools.package-data]
+lerobot_teleoperator_galaxea_a1_so_leader = ["py.typed"]
 
 [dependency-groups]
 dev = [

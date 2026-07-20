@@ -81,9 +81,7 @@ def test_plugin_registration_and_fixed_motor_topology() -> None:
 
 
 def test_read_feedback_and_disconnect_have_explicit_effects_only() -> None:
-    leader = GalaxeaA1SOLeader(
-        GalaxeaA1SOLeaderConfig(id="test", port="/dev/test-leader")
-    )
+    leader = GalaxeaA1SOLeader(GalaxeaA1SOLeaderConfig(id="test", port="/dev/test-leader"))
     leader.connect(calibrate=False)
 
     assert leader.get_action() == {
