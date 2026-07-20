@@ -5,11 +5,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/pengyue-polaron/lerobot-teleoperator-galaxea-a1-so-leader/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/pengyue-polaron/lerobot-teleoperator-galaxea-a1-so-leader/actions/workflows/ci.yml/badge.svg?branch=main"></a>
-  <a href="https://pypi.org/project/lerobot-teleoperator-galaxea-a1-so-leader/"><img alt="PyPI" src="https://img.shields.io/pypi/v/lerobot-teleoperator-galaxea-a1-so-leader"></a>
-  <a href="https://pypi.org/project/lerobot-teleoperator-galaxea-a1-so-leader/"><img alt="Python" src="https://img.shields.io/pypi/pyversions/lerobot-teleoperator-galaxea-a1-so-leader"></a>
   <a href="https://huggingface.co/docs/lerobot/v0.6.0/en/integrate_hardware"><img alt="LeRobot 0.6" src="https://img.shields.io/badge/LeRobot-0.6-FFD21E"></a>
-  <a href="LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/lerobot-teleoperator-galaxea-a1-so-leader"></a>
+  <a href="LICENSE"><img alt="Apache-2.0 License" src="https://img.shields.io/badge/License-Apache--2.0-blue.svg"></a>
 </p>
 
 This package registers the LeRobot Teleoperator type
@@ -83,5 +80,3 @@ uv run ruff check .
 uv run ruff format --check .
 uv build
 ```
-
-CI replaces the Feetech bus with a fake and never opens a serial device.
