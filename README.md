@@ -17,8 +17,7 @@ leader values to robot coordinates, record datasets, or publish robot commands.
 ## Install
 
 ```bash
-python -m pip install \
-  "lerobot_teleoperator_galaxea_a1_so_leader @ git+https://github.com/pengyue-polaron/lerobot-teleoperator-galaxea-a1-so-leader.git"
+python -m pip install lerobot_teleoperator_galaxea_a1_so_leader
 ```
 
 LeRobot discovers the exact `lerobot_teleoperator_` distribution prefix:
