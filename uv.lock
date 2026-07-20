@@ -406,7 +406,7 @@ feetech = [
 
 [[package]]
 name = "lerobot-teleoperator-galaxea-a1-so-leader"
-version = "0.1.0"
+version = "0.1.1"
 source = { editable = "." }
 dependencies = [
     { name = "lerobot", extra = ["feetech"] },

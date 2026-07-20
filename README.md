@@ -1,18 +1,22 @@
-# LeRobot Teleoperator plugin for the Galaxea A1 SO-Leader
+<h1 align="center">Galaxea A1 SO-Leader for LeRobot</h1>
 
-This package provides the auto-discovered LeRobot teleoperator type
-`galaxea_a1_so_leader` for the Galaxea A1 tabletop leader arm.
+<p align="center">
+  A third-party LeRobot Teleoperator plugin for the modified A1 leader arm.
+</p>
 
-The hardware topology is intentionally fixed:
+<p align="center">
+  <a href="https://github.com/pengyue-polaron/lerobot-teleoperator-galaxea-a1-so-leader/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/pengyue-polaron/lerobot-teleoperator-galaxea-a1-so-leader/actions/workflows/ci.yml/badge.svg?branch=main"></a>
+  <a href="https://pypi.org/project/lerobot-teleoperator-galaxea-a1-so-leader/"><img alt="PyPI" src="https://img.shields.io/pypi/v/lerobot-teleoperator-galaxea-a1-so-leader"></a>
+  <a href="https://pypi.org/project/lerobot-teleoperator-galaxea-a1-so-leader/"><img alt="Python" src="https://img.shields.io/pypi/pyversions/lerobot-teleoperator-galaxea-a1-so-leader"></a>
+  <a href="https://huggingface.co/docs/lerobot/v0.6.0/en/integrate_hardware"><img alt="LeRobot 0.6" src="https://img.shields.io/badge/LeRobot-0.6-FFD21E"></a>
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/lerobot-teleoperator-galaxea-a1-so-leader"></a>
+</p>
 
-```text
-joint0 .. joint5  Feetech STS3215 IDs 0..5, output in degrees
-gripper           Feetech STS3215 ID 6, calibrated RANGE_0_100 output
-```
-
-The plugin owns only the serial bus, calibration, setup, truthful raw actions, optional
-feedback, and connection lifecycle. It does not import ROS, start an A1 runtime, map
-leader values to robot coordinates, record datasets, or publish robot commands.
+This package registers the LeRobot Teleoperator type
+`galaxea_a1_so_leader`. It owns the leader's serial bus, calibration, setup,
+action reads, optional feedback, and connection lifecycle. It does not import
+ROS, start an A1 Runtime, record datasets, or map leader values into robot
+coordinates.
 
 ## Install
 
@@ -20,28 +24,54 @@ leader values to robot coordinates, record datasets, or publish robot commands.
 python -m pip install lerobot_teleoperator_galaxea_a1_so_leader
 ```
 
-LeRobot discovers the exact `lerobot_teleoperator_` distribution prefix:
+## LeRobot integration
+
+| Convention | Value |
+| --- | --- |
+| Distribution | `lerobot_teleoperator_galaxea_a1_so_leader` |
+| Type | `galaxea_a1_so_leader` |
+| Config | `GalaxeaA1SOLeaderConfig` |
+| Teleoperator | `GalaxeaA1SOLeader` |
+| Supported LeRobot | `>=0.6,<0.7` |
+
+The distribution prefix, module layout, config registration, class names, and
+package exports follow LeRobot's
+[third-party hardware conventions](https://huggingface.co/docs/lerobot/v0.6.0/en/integrate_hardware).
+LeRobot CLI entrypoints discover the plugin after installation.
+
+## Hardware contract
+
+| Channel | Hardware | Reported value |
+| --- | --- | --- |
+| `joint0` ... `joint5` | Feetech STS3215 IDs 0...5 | degrees |
+| `gripper` | Feetech STS3215 ID 6 | calibrated `RANGE_0_100` |
+
+The seven-motor topology is fixed. The config supplies lifecycle identity,
+serial port, and write retries; it does not redefine motor IDs or units.
+
+To calibrate the leader by itself:
 
 ```bash
-lerobot-teleoperate \
+lerobot-calibrate \
   --teleop.type=galaxea_a1_so_leader \
   --teleop.id=a1-leader \
   --teleop.port=/dev/serial/by-id/your-device
 ```
 
+This command opens the serial device. Run it only with the leader connected
+and its workspace clear.
+
 ## Pairing with Galaxea A1
 
-Raw leader actions are not valid A1 robot commands. The joints use degrees and the
-gripper reports its calibrated leader range, while the A1 Robot plugin accepts absolute
-radians and a normalized `0..1` gripper target.
+Leader outputs are not A1 commands. The leader reports degrees and its
+calibrated gripper range; the A1 Robot plugin accepts radians and a normalized
+`0..1` gripper target.
 
 Use `make_galaxea_a1_processors()` from
-[`lerobot-robot-galaxea-a1`](https://github.com/pengyue-polaron/lerobot-robot-galaxea-a1)
-with LeRobot's programmatic `teleoperate` or `record` API. The processor anchors leader
-deltas to the startup A1 pose and applies the explicit tracked sign, scale, bias, limit,
-and gripper range contract.
-
-Do not use the raw leader and A1 Robot together through the identity processor in the
+[lerobot-robot-galaxea-a1](https://github.com/pengyue-polaron/lerobot-robot-galaxea-a1)
+with LeRobot's programmatic APIs, or use the tracked
+[Galaxea A1 Runtime](https://github.com/pengyue-polaron/galaxea-a1-runtime)
+workflow. Do not pair these devices through the identity processor in the
 generic LeRobot 0.6 CLI.
 
 ## Development
@@ -55,7 +85,3 @@ uv build
 ```
 
 CI replaces the Feetech bus with a fake and never opens a serial device.
-
-## License
-
-Apache-2.0
