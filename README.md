@@ -51,6 +51,7 @@ generic LeRobot 0.6 CLI.
 uv sync --dev
 uv run pytest
 uv run ruff check .
+uv run ruff format --check .
 uv build
 ```
 
