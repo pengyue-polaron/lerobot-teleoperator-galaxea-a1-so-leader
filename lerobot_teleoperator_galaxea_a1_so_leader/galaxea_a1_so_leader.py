@@ -58,10 +58,20 @@ class GalaxeaA1SOLeader(Teleoperator):
     @check_if_already_connected
     def connect(self, calibrate: bool = True) -> None:
         self.bus.connect()
-        if not self.is_calibrated and calibrate:
-            logger.info("No matching A1 SO-Leader calibration was found; starting calibration")
-            self.calibrate()
-        self.configure()
+        try:
+            if not self.is_calibrated and calibrate:
+                logger.info("No matching A1 SO-Leader calibration was found; starting calibration")
+                self.calibrate()
+            self.configure()
+        except BaseException as connect_error:
+            try:
+                self.bus.disconnect()
+            except BaseException as cleanup_error:
+                raise BaseExceptionGroup(
+                    "A1 SO-Leader connection and cleanup both failed",
+                    [connect_error, cleanup_error],
+                ) from None
+            raise
         logger.info("%s connected", self)
 
     @property

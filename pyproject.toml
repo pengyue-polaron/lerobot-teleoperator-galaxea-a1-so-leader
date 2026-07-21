@@ -1,6 +1,6 @@
 [project]
 name = "lerobot_teleoperator_galaxea_a1_so_leader"
-version = "0.1.1"
+version = "0.1.2"
 description = "LeRobot Teleoperator plugin for the Galaxea A1 SO-Leader"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"

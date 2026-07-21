@@ -18,5 +18,9 @@ class GalaxeaA1SOLeaderConfig(TeleoperatorConfig):
     def __post_init__(self) -> None:
         if not self.port.startswith("/dev/") or any(character.isspace() for character in self.port):
             raise ValueError("port must be a whitespace-free device path under /dev")
-        if self.motor_write_retries < 1:
-            raise ValueError("motor_write_retries must be at least 1")
+        if (
+            isinstance(self.motor_write_retries, bool)
+            or not isinstance(self.motor_write_retries, int)
+            or self.motor_write_retries < 1
+        ):
+            raise ValueError("motor_write_retries must be a positive integer")

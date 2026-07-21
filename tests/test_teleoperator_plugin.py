@@ -98,3 +98,24 @@ def test_read_feedback_and_disconnect_have_explicit_effects_only() -> None:
     leader.disconnect()
     assert leader.bus.goal_writes == [{"joint0": 1.5}]
     assert leader.is_connected is False
+
+
+def test_connect_failure_releases_the_serial_bus(monkeypatch: pytest.MonkeyPatch) -> None:
+    leader = GalaxeaA1SOLeader(GalaxeaA1SOLeaderConfig(id="test", port="/dev/test-leader"))
+
+    def fail_configure() -> None:
+        raise RuntimeError("injected configuration failure")
+
+    monkeypatch.setattr(leader, "configure", fail_configure)
+    with pytest.raises(RuntimeError, match="injected configuration failure"):
+        leader.connect(calibrate=False)
+    assert leader.is_connected is False
+
+
+def test_motor_write_retries_rejects_booleans() -> None:
+    with pytest.raises(ValueError, match="positive integer"):
+        GalaxeaA1SOLeaderConfig(
+            id="test",
+            port="/dev/test-leader",
+            motor_write_retries=True,
+        )
